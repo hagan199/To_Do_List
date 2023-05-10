@@ -151,7 +151,7 @@ Give a ⭐️ if you like this project!
 
 ## 📝 License <a name="license"></a>
 
-This project is [MIT](https://github.com/hagan199/To-Do-List/List_Structure/MIT.md) licensed.
+This project is [MIT](https://github.com/hagan199/To_Do_List/tree/list_structure/MIT.md) licensed.
 
 
 
