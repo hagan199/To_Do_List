@@ -1,4 +1,4 @@
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 const mytaskList = document.getElementById('myTasksList');
 
@@ -15,7 +15,7 @@ const displayTask = () => {
                             </input>
                           </div>
                           <i class="fa-solid fa-trash-can deleteTask" id="removeTask"></i>`;
-    const info = document.getElementById('info');
+    const info = taskContainer.querySelector('#info');
     if (task.completed === true) {
       info.classList.add('taskCompleted');
     }
@@ -32,7 +32,7 @@ const addTask = (e) => {
       index: tasks.length + 1,
     };
     newTask.value = '';
-    tasks = [...tasks, taskItem];
+    tasks.push(taskItem);
     localStorage.setItem('tasks', JSON.stringify(tasks));
     displayTask();
   }
@@ -40,10 +40,8 @@ const addTask = (e) => {
 
 const editTask = (index, event) => {
   if (event.target.value === '') return;
-  if (event.key === 'Enter') {
-    tasks[index - 1].description = event.target.value;
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
+  tasks[index - 1].description = event.target.value;
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
 const deleteTask = (targetIndex) => {
@@ -57,6 +55,18 @@ const deleteTask = (targetIndex) => {
   localStorage.setItem('tasks', JSON.stringify(newList));
   displayTask();
 };
+
+mytaskList.addEventListener('input', (event) => {
+  const targetIndex = event.target.closest('.content').index;
+  editTask(targetIndex, event);
+});
+
+mytaskList.addEventListener('click', (event) => {
+  if (event.target.classList.contains('deleteTask')) {
+    const targetIndex = event.target.closest('.content').index;
+    deleteTask(targetIndex);
+  }
+});
 
 export {
   displayTask, addTask, editTask, deleteTask,
